@@ -18,7 +18,7 @@
                     </h3>
                     <div class="data">
                         <a href="{{{URL::to('admin/users')}}}">
-                            <h1>{{{User::count()}}}</h1>
+                            <h1>{{{Cartalyst\Sentry\Users\Eloquent\User::count()}}}</h1>
                         </a>
                         @if(hasAccess('users.create'))
                         <hr>

@@ -2,6 +2,11 @@
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
+	public function setUp() {
+		parent::setUp();
+		$this->_prepareForTests();
+	}
+
 	/**
 	 * Creates the application.
 	 *
@@ -14,6 +19,11 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 		$testEnvironment = 'testing';
 
 		return require __DIR__.'/../../bootstrap/start.php';
+	}
+
+	protected function _prepareForTests()
+	{
+		Artisan::call('migrate');
 	}
 
 }

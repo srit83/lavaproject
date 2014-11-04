@@ -8,9 +8,10 @@
         </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
+        @section('css')
         <!-- CSS are placed here -->
         {{ HTML::style('assets/stylesheets/backend.css') }}
+        @show
 
         <style>
         @section('styles')
@@ -60,26 +61,22 @@
             <div class="content">
                 <div class="flash-container">
                 @if(Session::has('success'))
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+                    <div class="alert alert-success">
                         <p>{{{ Session::get('success') }}}</p>
                     </div>
                 @endif
                 @if(Session::has('warning'))
-                    <div class="alert alert-warning alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+                    <div class="alert alert-warning">
                         <p>{{{ Session::get('warning') }}}</p>
                     </div>
                 @endif
                 @if(Session::has('danger'))
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+                    <div class="alert alert-danger">
                         <p>{{{ Session::get('danger') }}}</p>
                     </div>
                 @endif
                 @if(Session::has('info'))
-                    <div class="alert alert-info alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+                    <div class="alert alert-info">
                         <p>{{{ Session::get('info') }}}</p>
                     </div>
                 @endif
@@ -89,8 +86,13 @@
             </div>
         </div>
 
-        <!-- Scripts are placed here -->
-        {{ HTML::script('assets/javascript/backend.js') }}
+        @section('javascript')
+            <!-- Scripts are placed here -->
+            {{ HTML::script('assets/javascript/backend.js') }}
+        @show
+
+
+
 
     </body>
 </html>

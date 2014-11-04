@@ -6,7 +6,6 @@
     </h2>
     <div>
     <?= Former::horizontal_open() ?>
-    <?= Former::populate($user); ?>
     <fieldset>
         <legend><?= __('Nutzerdaten') ?></legend>
         <?= Former::text('us[first_name]')->label(__('Vorname'))->placeholder(__('Vorname'))->required() ?>
@@ -20,6 +19,8 @@
     <fieldset>
         <legend><?= __('Rechte') ?></legend>
         <?= Former::select('us[group]')->fromQuery(\Cartalyst\Sentry\Groups\Eloquent\Group::all(), 'name', 'id')->label(__('Gruppe'))->placeholder(__('Gruppe'))->required() ?>
+        <?= Former::checkbox('us[activated]')->label('&nbsp;')->text(__('Der Nutzer ist aktiv')); ?>
+
     </fieldset>
     <div class="form-actions">
         <input class="btn btn-success" name="commit" type="submit" value="<?= __('Nutzer anlegen') ?>">

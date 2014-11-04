@@ -9,11 +9,17 @@ function __($sId, $aParameters = array(), $sDomain = 'messages', $sLocale = null
 }
 
 function hasAccess($mxAccess) {
-	$oUser = Sentry::getUser();
-	if(is_array($mxAccess)) {
-		$blAccess = $oUser->hasAnyAccess($mxAccess);
-	} else {
-		$blAccess = $oUser->hasAccess($mxAccess);
+	$blAccess = false;
+	if($oUser = Sentry::getUser()) {
+		if ( is_array( $mxAccess ) ) {
+			$blAccess = $oUser->hasAnyAccess( $mxAccess );
+		} else {
+			$blAccess = $oUser->hasAccess( $mxAccess );
+		}
+		if(!$blAccess) {
+			$blAccess = $oUser->isSuperUser();
+		}
+		$blAccess;
 	}
-	return $oUser->isSuperUser() || $blAccess;
+	return  $blAccess;
 }

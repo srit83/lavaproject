@@ -7,19 +7,28 @@
 class UsersController extends BaseController {
 
 	public function all() {
-
-
 		return View::make('users.all');
 	}
 
 	public function create() {
-		$oUser = new User;
 		if(Request::isMethod('POST')) {
 			$aNewUser = Input::get('us');
-			$oUser->fill($aNewUser);
-			$oUser->validate();
+			$iGroup = $aNewUser['group'];
+			unset($aNewUser['group']);
+			try {
+				//$aNewUser['activated'] = (isset($aNewUser['activated'])) ? (bool)$aNewUser['activated'] : false;
+				$aNewUser['activated'] = true;
+				\Cartalyst\Sentry\Users\Eloquent\User::creating(function(){
+
+				});
+				Sentry::createUser( $aNewUser );
+			} catch (Exception $e) {
+				Session::flash('danger', $e->getMessage());
+			}
 		}
-		return View::make('users.create')->with('user', $oUser);
+		return View::make('users.create');
 	}
+
+
 
 }
