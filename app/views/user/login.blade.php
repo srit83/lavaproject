@@ -47,7 +47,10 @@
                     <div class="row">
                         <div class="col-lg-12 small">
                             @if ($login_cookie)
-                                    {{{_v('Nicht %s?', array($login_cookie ))}}} - <a href="{{{URL::route('login')}}}?flush=1">{{{_('Hier klicken')}}}</a> -
+                                <a href="{{{URL::route('login')}}}?flush=1">
+                                    {{{_v('Nicht %s?', [
+                                        $login_cookie
+                                    ])}}}</a> -
                             @endif
                             <a href="{{{URL::route('forget_password')}}}">{{{_('Passwort vergessen?')}}}</a>
                         </div>
