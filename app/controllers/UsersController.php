@@ -57,17 +57,12 @@ class UsersController extends BaseController {
 	}
 
 	public function create() {
+		$this->_beforeCreate();
 		if(Request::isMethod('POST')) {
-			$aNewUser = Input::get('us');
-			$iGroup = $aNewUser['group'];
-			unset($aNewUser['group']);
+			list( $aUser, $iGroup ) = $this->_getUserDataFromInput();
 			try {
-				User::created(function($oModel){
-					$oModel->isExternRegistered();
-				});
-				$aNewUser['activated'] = (isset($aNewUser['activated'])) ?: false;
-				$aNewUser['password'] = Str::random();
-				$oUser = Sentry::createUser( $aNewUser );
+				$aUser['password'] = Str::random();
+				$oUser = Sentry::createUser( $aUser );
 				if($oGroup = Sentry::findGroupById($iGroup)) {
 					$oUser->addGroup($oGroup);
 				}
@@ -81,9 +76,38 @@ class UsersController extends BaseController {
 	}
 
 	public function edit($sName) {
-
+		$oUser = Sentry::findUserByLogin($sName);
+		if(Request::isMethod('POST')) {
+			list( $aUser, $iGroup ) = $this->_getUserDataFromInput();
+			$oUser->fill($aUser);
+			$oUser->save();
+			if($oGroup = Sentry::findGroupById($iGroup)) {
+				$oUser->removeGroup(Sentry::findGroupById($oUser->getGroups()->first()->id));
+				$oUser->addGroup($oGroup);
+			}
+			Session::flash('success', _('Nutzer wurde erfolgreich geändert.'));
+			return Redirect::to(URL::previous());
+		}
+		return View::make('users.edit')->with('user', $oUser);
 	}
 
+	/**
+	 * @return array
+	 */
+	protected function _getUserDataFromInput() {
+		$aUser  = Input::all();
+		$aUser['activated'] = (isset($aUser['activated'])) ?: false;
+		$iGroup = $aUser['group'];
+		unset( $aUser['group'], $aUser['commit'] );
+
+		return array( $aUser, $iGroup );
+	}
+
+	protected function _beforeCreate() {
+		User::created( function ( $oModel ) {
+			$oModel->isExternRegistered();
+		} );
+	}
 
 
 }

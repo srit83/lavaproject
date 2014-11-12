@@ -131,7 +131,7 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User {
 
 	public function sendForgetPasswordMail() {
 		$this->oneLogin();
-			Email::sendForgetPasswordMail($this);
+		Email::sendForgetPasswordMail($this);
 	}
 
 }
