@@ -23,6 +23,9 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
 	protected function _prepareForTests()
 	{
+		\Artisan::call('migrate', [
+			'--package' => 'cartalyst/sentry'
+		]);
 		Artisan::call('migrate');
 	}
 

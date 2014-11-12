@@ -12,7 +12,7 @@ class CreateFirstLoginsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('first_logins', function(Blueprint $table)
+			Schema::create('first_logins', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->unsignedInteger('user_id');

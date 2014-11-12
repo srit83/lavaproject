@@ -8,7 +8,7 @@
                     class="active"
                 @endif
                 >
-                <a href="{{{URL::to('admin')}}}" title="<?= __('Überblick') ?>"> <?= __('Überblick') ?></a>
+                <a href="{{{URL::route('admin')}}}" title="{{ _('Überblick') }}"> {{ _('Überblick') }}</a>
             </li>
             @endif
             @if(hasAccess('users.all'))
@@ -17,7 +17,7 @@
                     class="active"
                 @endif
             >
-                <a href="{{{URL::to('admin/users')}}}" title="<?= __('Nutzer') ?>"> <?= __('Nutzer') ?></a>
+                <a href="{{{URL::route('users_all')}}}" title="{{ _('Nutzer') }}"> {{ _('Nutzer') }}</a>
             </li>
             @endif
         </ul>

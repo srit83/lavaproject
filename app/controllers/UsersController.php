@@ -7,7 +7,53 @@
 class UsersController extends BaseController {
 
 	public function all() {
-		return View::make('users.all');
+		$sFilter = Input::get('filter', 'active');
+
+		switch($sFilter) {
+			case 'active':
+				$oUsers = User::active()->get();
+				$iUserCnt = User::active()->count();
+				break;
+			case 'deactive':
+				$oUsers = User::deactive()->get();
+				$iUserCnt = User::deactive()->count();
+				break;
+			case 'admins':
+				$oUsers = User::isAdmin()->active()->get();
+				$iUserCnt = User::countIsActiveAdmin();
+				break;
+		}
+
+		return View::make('users.all')
+			->with('filter', $sFilter)
+			->with('users', $oUsers)
+			->with('user_cnt', $iUserCnt)
+			->with('all_filters', [
+				'active' => [
+					'label' => _('Aktiv'),
+					'route' => URL::route('users_all'),
+					'cnt' => User::active()->count()
+				],
+				'deactive' => [
+					'label' => _('Deaktiviert'),
+					'route' => URL::route('users_all') . '?filter=deactive',
+					'cnt' => User::deactive()->count()
+				],
+				'admins' => [
+					'label' => _('Admins'),
+					'route' => URL::route('users_all') . '?filter=admins',
+					'cnt' => User::countIsActiveAdmin()
+				]
+			]);
+	}
+
+	public function delete($sEmail) {
+		if($oUser = User::email($sEmail)->first()) {
+			$oUser->delete();
+			Session::flash('danger', _('Nutzer erfolgreich gelöscht.'));
+		} else {
+			Session::flash('danger', _('Nutzer konnte nicht gelöscht werden.'));
+		}
 	}
 
 	public function create() {
@@ -16,17 +62,26 @@ class UsersController extends BaseController {
 			$iGroup = $aNewUser['group'];
 			unset($aNewUser['group']);
 			try {
-				//$aNewUser['activated'] = (isset($aNewUser['activated'])) ? (bool)$aNewUser['activated'] : false;
-				$aNewUser['activated'] = true;
-				\Cartalyst\Sentry\Users\Eloquent\User::creating(function(){
-
+				User::created(function($oModel){
+					$oModel->isExternRegistered();
 				});
-				Sentry::createUser( $aNewUser );
+				$aNewUser['activated'] = (isset($aNewUser['activated'])) ?: false;
+				$aNewUser['password'] = Str::random();
+				$oUser = Sentry::createUser( $aNewUser );
+				if($oGroup = Sentry::findGroupById($iGroup)) {
+					$oUser->addGroup($oGroup);
+				}
+				Session::flash('success', _('Nutzer wurde erfolgreich angelegt.'));
+				return Redirect::to(URL::previous());
 			} catch (Exception $e) {
 				Session::flash('danger', $e->getMessage());
 			}
 		}
 		return View::make('users.create');
+	}
+
+	public function edit($sName) {
+
 	}
 
 

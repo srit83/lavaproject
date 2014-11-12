@@ -15,12 +15,22 @@
  * außer login, überall loginpflicht
  */
 
-Route::match(array('GET', 'POST'), '/login', array('uses' => 'UserController@login'));
-Route::match(array('GET', 'POST'), '/logout', array('uses' => 'UserController@logout'));
+Route::match(array('GET', 'POST'), '/login', array('as' => 'login', 'uses' => 'UserController@login'));
+Route::match(array('GET', 'POST'), '/logout', array('as' => 'logout', 'uses' => 'UserController@logout'));
+Route::match(array('GET', 'POST'), '/f/{oneloginkey}', array('as' => 'fresh_password', 'uses' => 'UserController@fresh_password'));
+Route::match(array('GET', 'POST'), '/forget_password', array('as' => 'forget_password', 'uses' => 'UserController@forget_password'));
+
+Route::get('/lang/{locale?}', [
+	'as'=>'lang',
+	'uses'=>'HomeController@changeLang'
+]);
 
 Route::group( array( 'before' => 'auth' ), function () {
-	Route::get('/', array('uses' => 'DashBoardController@show'));
-	Route::get('admin', array('uses' => 'AdminController@index'));
-	Route::get('admin/users', array('uses' => 'UsersController@all'));
-	Route::match(array('GET', 'POST'), 'admin/users/create', array('uses' => 'UsersController@create'));
+	Route::get('/', array('as' => 'root', 'uses' => 'DashBoardController@show'));
+	Route::get('admin', array('as' => 'admin', 'uses' => 'AdminController@index'));
+	Route::get('admin/users', array('as' => 'users_all', 'uses' => 'UsersController@all'));
+	Route::match(array('GET', 'POST'), 'admin/users/create', array('as' => 'users_create', 'uses' => 'UsersController@create'));
+	Route::get('admin/users/show/{email}', array('as' => 'users_show', 'uses' => 'UsersController@show'));
+	Route::match(array('GET', 'POST'), 'admin/users/edit/{email}', array('as' => 'users_edit', 'uses' => 'UsersController@edit'));
+	Route::delete('admin/users/delete/{email}', array('as' => 'users_delete', 'uses' => 'UsersController@delete'));
 } );

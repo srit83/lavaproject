@@ -2,6 +2,8 @@
 
 return array(
 
+	'name' => 'lavalproject',
+
 	/*
 	|--------------------------------------------------------------------------
 	| Application Debug Mode
@@ -39,7 +41,7 @@ return array(
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'Europe/Berlin',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -52,7 +54,7 @@ return array(
 	|
 	*/
 
-	'locale' => 'en',
+	'locale' => 'de',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -65,7 +67,7 @@ return array(
 	|
 	*/
 
-	'fallback_locale' => 'en',
+	'fallback_locale' => 'de',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -121,11 +123,13 @@ return array(
 	'Illuminate\Validation\ValidationServiceProvider',
 	'Illuminate\View\ViewServiceProvider',
 	'Illuminate\Workbench\WorkbenchServiceProvider',
+	'Lavaproject\LavaprojectServiceProvider',
 	'Cartalyst\Sentry\SentryServiceProvider',
 	'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 	'Former\FormerServiceProvider',
 	'Way\Generators\GeneratorsServiceProvider',
-	'Barryvdh\Debugbar\ServiceProvider',
+	//'Barryvdh\Debugbar\ServiceProvider',
+	'Xinax\LaravelGettext\LaravelGettextServiceProvider',
 ),
 
 	/*

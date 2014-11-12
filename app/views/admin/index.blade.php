@@ -2,10 +2,10 @@
 @include('admin.sub_nav', array('active'=>'admin'))
 @section('content')
     <h2>
-        <?= __('Admin Bereich') ?>
+        {{ _('Admin Bereich') }}
     </h2>
     <p class="light">
-        <?= __('Du kannst von hier aus Nutzer uvm. managen.') ?>
+        {{ _('Du kannst von hier aus Nutzer uvm. managen.') }}
     </p>
     <hr>
     <div class="admin-dashboard">
@@ -14,15 +14,15 @@
             <div class="col-sm-4">
                 <div class="light-well">
                     <h3>
-                        <?= __('Nutzer') ?>
+                        {{ _('Nutzer') }}
                     </h3>
                     <div class="data">
-                        <a href="{{{URL::to('admin/users')}}}">
+                        <a href="{{{URL::route('users_all')}}}">
                             <h1>{{{Cartalyst\Sentry\Users\Eloquent\User::count()}}}</h1>
                         </a>
                         @if(hasAccess('users.create'))
                         <hr>
-                        <a class="btn btn-success" href="{{{URL::to('admin/users/create')}}}"><i class="glyphicon glyphicon-plus"></i> <?= __('Neuen Nutzer anlegen') ?></a>
+                        <a class="btn btn-success" href="{{{URL::route('users_create')}}}"><i class="glyphicon glyphicon-plus"></i> {{ _('Neuen Nutzer anlegen') }}</a>
                         @endif
                     </div>
                 </div>

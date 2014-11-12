@@ -4,9 +4,13 @@
  * @author stefanriedel
  */
 
-function __($sId, $aParameters = array(), $sDomain = 'messages', $sLocale = null) {
-	return trans($sId, $aParameters, $sDomain, $sLocale);
+function _v($sMessage, $aParams) {
+	return vsprintf(_($sMessage), $aParams);
 }
+
+/*function _($sId, $aParameters = array(), $sDomain = 'messages', $sLocale = null) {
+	return trans($sId, $aParameters, $sDomain, $sLocale);
+}*/
 
 function hasAccess($mxAccess) {
 	$blAccess = false;
@@ -22,4 +26,15 @@ function hasAccess($mxAccess) {
 		$blAccess;
 	}
 	return  $blAccess;
+}
+
+function getGravatar($sEmail, $iSize=null, $sD='identicon') {
+	$sUri = Request::isSecure() ? 'https://' : 'http://';
+	$sUri .= 'www.gravatar.com/avatar/';
+	$sUri .= md5($sEmail);
+	if($iSize) {
+		$sUri .= '?s=' . (int)$iSize;
+	}
+	$sUri .= (strstr('?', $sUri)) ? '&d=' . $sD : '?d=' . $sD;
+	return $sUri;
 }

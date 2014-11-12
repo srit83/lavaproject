@@ -6,7 +6,7 @@
 
 namespace Lavaproject\Tests;
 
-use Lavaproject\Email;
+use Lavaproject\Facades\Email;
 use Way\Tests\Assert;
 
 class EmailTest extends \TestCase {
@@ -16,12 +16,6 @@ class EmailTest extends \TestCase {
 	 */
 	protected $_oEmail;
 
-	public function setUp() {
-		parent::setUp();
-		\Artisan::call('migrate', array('--package' => 'cartalyst/sentry'));
-		$this->_oEmail = new Email();
-	}
-
 	public function testSendCreateUserFromBackendMail() {
 		$aCredentials = array(
 			'email'    => 'foo@bar.com',
@@ -29,7 +23,7 @@ class EmailTest extends \TestCase {
 		);
 
 		$oUser = \Sentry::register($aCredentials, true);
-		Assert::true($this->_oEmail->sendUserCreatedFromBackendWelcomeMail($oUser, $aCredentials['password']));
+		Assert::true(Email::sendUserCreatedFromBackendWelcomeMail($oUser, $aCredentials['password']));
 	}
 
 }

@@ -8,9 +8,9 @@
 		{{ _v('Hallo %s', array('name' => (string)$user)) }}</h1>
 
 		<div>
-		    <p>{{ _v('Es wurde ein Nutzeraccount bei %s angelegt.', array(Config::get('app.name'))) }}</p>
-		    <p>{{{_('Klicke auf unten stehenden Link um dein Passwort zu vergeben.')}}}</p>
-		    <p>
+		    <p>{{{_('Es wurde ein Link zum ändern deines Passwortes angefordert. Klicke auf unten stehenden Link, um dein Passwort zu ändern.')}}}
+		    <br>
+
 		    <a href="{{{URL::route('fresh_password', array($user->oneloginkey))}}}">{{{_('Passwort setzen')}}}</a>
 		    </p>
 		</div>

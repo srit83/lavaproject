@@ -16,7 +16,7 @@
         <style>
         @section('styles')
             body {
-                padding-top: 60px;
+                padding-top: 70px;
             }
         @show
         </style>
@@ -38,16 +38,16 @@
                 <!-- Everything you want hidden at 940px or less, place within here -->
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="{{{ URL::to('') }}}"><?= __('Dashboard') ?></a></li>
+                        <li><a href="{{{ URL::route('root') }}}">{{ _('Dashboard') }}</a></li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        @if(hasAccess(array('admin.users.all', 'admin.users.create', 'admin.users.view', 'admin.users.delete', 'admin.users.edit', 'admin.show')))
-                            <li><a href="{{{URL::to('admin')}}}" data-original-title="<?= __('Admin Bereich') ?>" title="<?= __('Admin Bereich') ?>"><i class="glyphicon glyphicon-cog"></i></a></li>
+                        @if(hasAccess(array('admin.users.all', 'admin.users.create', 'admin.users.show', 'admin.users.delete', 'admin.users.edit', 'admin.show')))
+                            <li><a href="{{{URL::route('admin')}}}" data-original-title="{{ _('Admin Bereich') }}" title="{{ _('Admin Bereich') }}"><i class="glyphicon glyphicon-cog"></i></a></li>
                         @endif
-                        <li><a href="{{{URL::to('logout')}}}" data-orinal-title="<?= __('Logout') ?>" title="<?= __('Logout') ?>"><i class="glyphicon glyphicon-log-out"></i></a></li>
+                        <li><a href="{{{URL::route('logout')}}}" data-orinal-title="{{ _('Logout') }}" title="{{ _('Logout') }}"><i class="glyphicon glyphicon-log-out"></i></a></li>
                         <li class="hidden-xs">
-                            <a href="javascript:void(0);" class="profile-pic"><img alt="<?= __('User') ?>" src="http://www.gravatar.com/avatar/<?= md5(Sentry::getUser()->email) ?>?s=26&d=identicon"></a>
+                            <a href="javascript:void(0);" class="profile-pic"><img alt="{{ _('User') }}" src="{{{getGravatar(Sentry::getUser()->email, 26)}}}"></a>
                         </li>
                     </ul>
                 </div>

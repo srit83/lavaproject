@@ -1,0 +1,124 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: lavaproject\n"
+"POT-Creation-Date: 2014-11-06 09:36+0100\n"
+"PO-Revision-Date: 2014-11-06 09:37+0100\n"
+"Last-Translator: Stefan Riedel <sr@laravel-blog.de>\n"
+"Language-Team: Stefan Riedel <sr@laravel-blog.de>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.10\n"
+"X-Poedit-KeywordsList: _\n"
+"X-Poedit-Basepath: ../../../..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: controllers\n"
+"X-Poedit-SearchPath-1: views\n"
+"X-Poedit-SearchPath-2: storage/views\n"
+"X-Poedit-SearchPath-3: libraries\n"
+"X-Poedit-SearchPath-4: models\n"
+"X-Poedit-SearchPath-5: commands\n"
+
+#: controllers/HomeController.php:8
+msgid "Sprache erfolgreich geändert"
+msgstr "Language successfully changed"
+
+#: controllers/UserController.php:13
+msgid "Login erfolgreich"
+msgstr "Login success"
+
+#: controllers/UserController.php:16
+msgid "Login fehlgeschlagen"
+msgstr "Login failed"
+
+#: controllers/UserController.php:25
+msgid "Logout erfolgreich"
+msgstr "Logout success"
+
+#: storage/views/0602f3aacdb49fbeaa39edc7c7a34e85.php:42
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: storage/views/0602f3aacdb49fbeaa39edc7c7a34e85.php:47
+#: storage/views/debaef80c7ba5debdd2c5432101e8d60.php:4
+msgid "Admin Bereich"
+msgstr "Admin area"
+
+#: storage/views/0602f3aacdb49fbeaa39edc7c7a34e85.php:49
+msgid "Logout"
+msgstr "Logout"
+
+#: storage/views/0602f3aacdb49fbeaa39edc7c7a34e85.php:51
+msgid "User"
+msgstr "user"
+
+#: storage/views/6ee90e00978466e6029fcdfe52bb1e02.php:11
+msgid "Überblick"
+msgstr "overview"
+
+#: storage/views/6ee90e00978466e6029fcdfe52bb1e02.php:20
+#: storage/views/debaef80c7ba5debdd2c5432101e8d60.php:18
+msgid "Nutzer"
+msgstr "user"
+
+#: storage/views/9a7a7a6408a8a5cf22c8973fb2a7edca.php:5
+#: storage/views/9a7a7a6408a8a5cf22c8973fb2a7edca.php:27
+msgid "Login"
+msgstr "login"
+
+#: storage/views/9a7a7a6408a8a5cf22c8973fb2a7edca.php:20
+#: storage/views/eb08874c8b9fd472c3a5524a3bca580b.php:16
+msgid "E-Mail-Adresse"
+msgstr "email"
+
+#: storage/views/9a7a7a6408a8a5cf22c8973fb2a7edca.php:22
+#: storage/views/eb08874c8b9fd472c3a5524a3bca580b.php:20
+#: storage/views/eb08874c8b9fd472c3a5524a3bca580b.php:21
+msgid "Passwort"
+msgstr "password"
+
+#: storage/views/9a7a7a6408a8a5cf22c8973fb2a7edca.php:25
+msgid "Eingeloggt bleiben"
+msgstr "stay logged in"
+
+#: storage/views/debaef80c7ba5debdd2c5432101e8d60.php:8
+msgid "Du kannst von hier aus Nutzer uvm. managen."
+msgstr "You can manage user and more from here"
+
+#: storage/views/debaef80c7ba5debdd2c5432101e8d60.php:27
+#: storage/views/eb08874c8b9fd472c3a5524a3bca580b.php:4
+msgid "Neuen Nutzer anlegen"
+msgstr "add new user"
+
+#: storage/views/eb08874c8b9fd472c3a5524a3bca580b.php:11
+msgid "Nutzerdaten"
+msgstr "userdata"
+
+#: storage/views/eb08874c8b9fd472c3a5524a3bca580b.php:12
+msgid "Vorname"
+msgstr "first name"
+
+#: storage/views/eb08874c8b9fd472c3a5524a3bca580b.php:14
+msgid "Nachname"
+msgstr "last name"
+
+#: storage/views/eb08874c8b9fd472c3a5524a3bca580b.php:25
+msgid "Rechte"
+msgstr "rights"
+
+#: storage/views/eb08874c8b9fd472c3a5524a3bca580b.php:26
+msgid "Gruppe"
+msgstr "group"
+
+#: storage/views/eb08874c8b9fd472c3a5524a3bca580b.php:28
+msgid "Der Nutzer ist aktiv"
+msgstr "the user is active"
+
+#: storage/views/eb08874c8b9fd472c3a5524a3bca580b.php:33
+msgid "Nutzer anlegen"
+msgstr "add new user"
+
+#: storage/views/eb08874c8b9fd472c3a5524a3bca580b.php:34
+msgid "Abbrechen"
+msgstr "cancel"
