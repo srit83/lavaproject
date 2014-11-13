@@ -56,6 +56,24 @@ class UsersController extends BaseController {
 		}
 	}
 
+	public function block($sEmail) {
+		if($oUser = Sentry::findThrottlerByUserLogin($sEmail)) {
+			$oUser->ban();
+			Session::flash('danger', _('Nutzer erfolgreich geblock.'));
+		} else {
+			Session::flash('danger', _('Nutzer konnte nicht geblockt werden.'));
+		}
+	}
+
+	public function unblock($sEmail) {
+		if($oUser = Sentry::findThrottlerByUserLogin($sEmail)) {
+			$oUser->unban();
+			Session::flash('danger', _('Nutzer erfolgreich freigegeben.'));
+		} else {
+			Session::flash('danger', _('Nutzer konnte nicht freigegeben werden.'));
+		}
+	}
+
 	public function create() {
 		$this->_beforeCreate();
 		if(Request::isMethod('POST')) {
@@ -75,11 +93,21 @@ class UsersController extends BaseController {
 		return View::make('users.create');
 	}
 
+	/**
+	 * @param $sName
+	 *
+	 * @todo refactoring with create
+	 *
+	 * @return $this|\Illuminate\Http\RedirectResponse
+	 */
 	public function edit($sName) {
 		$oUser = Sentry::findUserByLogin($sName);
 		if(Request::isMethod('POST')) {
 			list( $aUser, $iGroup ) = $this->_getUserDataFromInput();
 			$oUser->fill($aUser);
+			/**
+			 * @todo try catch
+			 */
 			$oUser->save();
 			if($oGroup = Sentry::findGroupById($iGroup)) {
 				$oUser->removeGroup(Sentry::findGroupById($oUser->getGroups()->first()->id));

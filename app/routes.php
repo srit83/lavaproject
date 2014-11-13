@@ -33,4 +33,6 @@ Route::group( array( 'before' => 'auth' ), function () {
 	Route::get('admin/users/show/{email}', array('as' => 'users_show', 'uses' => 'UsersController@show'));
 	Route::match(array('GET', 'POST'), 'admin/users/edit/{email}', array('as' => 'users_edit', 'uses' => 'UsersController@edit'));
 	Route::delete('admin/users/delete/{email}', array('as' => 'users_delete', 'uses' => 'UsersController@delete'));
+	Route::put('admin/users/block/{email}', array('as' => 'users_block', 'uses' => 'UsersController@block'));
+	Route::put('admin/users/unblock/{email}', array('as' => 'users_unblock', 'uses' => 'UsersController@unblock'));
 } );

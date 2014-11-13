@@ -39,7 +39,7 @@
                     {{ Former::password('cr[password]')->placeholder(_('Passwort')) }}
                     {{ Former::checkbox('remember')
                           ->text(_('Eingeloggt bleiben')) }}
-                    {{ Former::submit('Sign in')->class('btn btn-success col-xs-12') }}
+                    {{ Former::submit(_('Login'))->class('btn btn-success col-xs-12') }}
                     </fieldset>
                     {{ Former::close(); }}
                 </div>

@@ -29,9 +29,6 @@
       "app/tests/TestCase.php",
       "app/libraries"
     ],
-    "files": [
-      "app/helpers.php"
-    ],
     "psr-0": {
       "Lavaproject": "app/libraries"
     }

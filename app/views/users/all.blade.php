@@ -23,10 +23,18 @@
                             @endif
                         </div>
 
-                        @if(hasAccess(array('admin.users.edit')) || hasAccess(array('admin.users.delete')) ||  $oUser->email === Sentry::getUser()->email)
+                        @if(hasAccess(array('admin.users.edit', 'admin.users.delete', 'admin.users.block')) ||  $oUser->email === Sentry::getUser()->email)
                         <div class="pull-right">
                             @if(hasAccess(array('admin.users.edit')) || $oUser->email === Sentry::getUser()->email)
                                 <a class="btn btn-xs btn-default" href="{{{URL::route('users_edit', ['email' => $oUser->email])}}}">{{{_('Bearbeiten')}}}</a>
+                            @endif
+                            @if(hasAccess(array('admin.users.block')) &&  $oUser->email !== Sentry::getUser()->email)
+                                {? $oThrottleUser = Sentry::findThrottlerByUserId($oUser->id); ?}
+                                @if($oThrottleUser->isBanned())
+                                    <a class="btn btn-xs btn-success" href="{{{URL::route('users_unblock', ['email' => $oUser->email])}}}" data-method="put" data-confirm="{{{_v('Willst du den Account von %s wirklich wieder freigeben?', [$oUser->email])}}}">{{{_('Freigeben')}}}</a>
+                                @else
+                                    <a class="btn btn-xs btn-danger" href="{{{URL::route('users_block', ['email' => $oUser->email])}}}" data-method="put" data-confirm="{{{_v('Soll %s wirklich geblockt werden?', [$oUser->email])}}}">{{{_('Blocken')}}}</a>
+                                @endif
                             @endif
                             @if(hasAccess(array('admin.users.delete')) &&  $oUser->email !== Sentry::getUser()->email)
                                 <a class="btn btn-xs btn-danger" href="{{{URL::route('users_delete', ['email' => $oUser->email])}}}" data-method="delete" data-confirm="{{{_v('Der Nutzer %s wird dabei komplett gelöscht. Bist du dir sicher, das du das tun möchtest?', [$oUser->email])}}}">{{{_('Löschen')}}}</a>
