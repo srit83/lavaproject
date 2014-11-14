@@ -45,6 +45,11 @@
 class User extends Cartalyst\Sentry\Users\Eloquent\User {
 
 	/**
+	 * @var null\Cartalyst\Sentry\Throttling\ThrottleInterface
+	 */
+	protected $_oThrottle = null;
+
+	/**
 	 * @return $this
 	 */
 	protected static function _prepareCountIsAdminQuery() {
@@ -132,6 +137,39 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User {
 	public function sendForgetPasswordMail() {
 		$this->oneLogin();
 		Email::sendForgetPasswordMail($this);
+	}
+
+	public function ban() {
+		try {
+			$this->getThrottle()->ban();
+			return true;
+		} catch(Exception $e) {
+			return false;
+		}
+	}
+
+	public function unban() {
+		try {
+			$this->getThrottle()->unban();
+			return true;
+		} catch(Exception $e) {
+			return false;
+		}
+	}
+
+	public function isBanned() {
+		try {
+			return $this->getThrottle()->isBanned();
+		} catch(Exception $e) {
+			return true;
+		}
+	}
+
+	public function getThrottle() {
+		if(null == $this->_oThrottle) {
+			$this->_oThrottle = Sentry::findThrottlerByUserLogin($this->email);
+		}
+		return $this->_oThrottle;
 	}
 
 }

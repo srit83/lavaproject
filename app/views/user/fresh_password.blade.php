@@ -18,7 +18,7 @@
 
                 {{ Former::password('cr[password]')->placeholder(_('Passwort')); }}
                 {{ Former::password('cr[password_confirmation]')->placeholder(_('Passwort')); }}
-                {{ Former::actions()->large_primary_submit(_('Passwort setzen')) }}
+                {{ Former::submit(_('Neues Passwort setzen'))->class('btn btn-success col-xs-12') }}
                 </fieldset>
                 {{ Former::close(); }}
             </div>

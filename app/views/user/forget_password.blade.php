@@ -22,11 +22,17 @@
                 <p class="text-info">{{{_('Bitte gebe deine E-Mail-Adresse an.')}}}</p>
 
                 {{ Former::email('cr[email]')->placeholder(_('E-Mail-Adresse')); }}
-                {{ Former::actions()->large_primary_submit(_('Passwort setzen')) }}
+                {{ Former::submit(_('Passwort Link anfordern'))->class('btn btn-success col-xs-12') }}
                 </fieldset>
                 {{ Former::close(); }}
             </div>
-
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-lg-12 small">
+                        <a href="{{{URL::route('login')}}}">{{{_('Abbrechen')}}}</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @stop

@@ -4,7 +4,7 @@
  * @author stefanriedel
  */
 
-class AdminController extends BaseController {
+class AdminController extends AdminBaseController {
 	public function index() {
 		return View::make('admin.index');
 	}

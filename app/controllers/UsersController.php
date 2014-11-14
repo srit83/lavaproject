@@ -4,7 +4,7 @@
  * @author stefanriedel
  */
 
-class UsersController extends BaseController {
+class UsersController extends AdminBaseController {
 
 	public function all() {
 		$sFilter = Input::get('filter', 'active');
@@ -57,7 +57,7 @@ class UsersController extends BaseController {
 	}
 
 	public function block($sEmail) {
-		if($oUser = Sentry::findThrottlerByUserLogin($sEmail)) {
+		if($oUser = User::email($sEmail)->first()) {
 			$oUser->ban();
 			Session::flash('danger', _('Nutzer erfolgreich geblock.'));
 		} else {
@@ -66,7 +66,7 @@ class UsersController extends BaseController {
 	}
 
 	public function unblock($sEmail) {
-		if($oUser = Sentry::findThrottlerByUserLogin($sEmail)) {
+		if($oUser = User::email($sEmail)->first()) {
 			$oUser->unban();
 			Session::flash('danger', _('Nutzer erfolgreich freigegeben.'));
 		} else {

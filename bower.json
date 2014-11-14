@@ -1,6 +1,6 @@
 {
   "name": "Alpha Projects",
   "dependencies": {
-    "bootstrap": "~3.3.0"
+    "bootstrap": "~3.3.1"
   }
 }

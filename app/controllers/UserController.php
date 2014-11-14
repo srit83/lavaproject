@@ -8,7 +8,7 @@ class UserController extends BaseController {
 	public function forget_password() {
 		if(Request::isMethod('POST')) {
 			$aCr = Input::get( 'cr' );
-			if($oUser = User::email($aCr['email'])->first()) {
+			if($oUser = User::email($aCr['email'])->first() AND !$oUser->isBanned()) {
 				$oUser->sendForgetPasswordMail();
 				Session::flash('success', _('Es wurde eine E-Mail an dich gesendet.'));
 			} else {

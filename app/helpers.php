@@ -20,10 +20,6 @@ function hasAccess($mxAccess) {
 		} else {
 			$blAccess = $oUser->hasAccess( $mxAccess );
 		}
-		if(!$blAccess) {
-			$blAccess = $oUser->isSuperUser();
-		}
-		$blAccess;
 	}
 	return  $blAccess;
 }
@@ -37,4 +33,15 @@ function getGravatar($sEmail, $iSize=null, $sD='identicon') {
 	}
 	$sUri .= (strstr('?', $sUri)) ? '&d=' . $sD : '?d=' . $sD;
 	return $sUri;
+}
+
+function concat($sSeparator) {
+	$sRetValue = '';
+	foreach(func_get_args() as $iI => $sValue) {
+		if($iI > 0 && !empty($sValue)) {
+			$sRetValue .= $sValue . $sSeparator;
+		}
+	}
+	$iCatting = strlen($sSeparator);
+	return substr($sRetValue, 0, -$iCatting);
 }

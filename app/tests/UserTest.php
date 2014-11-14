@@ -12,6 +12,34 @@ class UserTest extends \TestCase {
 
 	use \Way\Tests\ModelHelpers;
 
+	/**
+	 * @return \Cartalyst\Sentry\Users\UserInterface
+	 */
+	protected function _getUser($sEmail = 'sr@laravel-blog.de', $sPassword = '1234', $sFirstName = 'Stefan', $sLastName = 'Riedel', $blActivated = 1) {
+		$oUser = \Sentry::createUser( array(
+			'email'      => $sEmail,
+			'password'   => $sPassword,
+			'first_name' => $sFirstName,
+			'last_name'  => $sLastName,
+			'activated'  => $blActivated
+		) );
+
+		return $oUser;
+	}
+
+	/**
+	 * @return \Cartalyst\Sentry\Groups\GroupInterface
+	 */
+	protected function _getAdminGroup() {
+		$oAdminGroup = \Sentry::createGroup( array(
+			'name'        => 'Admin',
+			'permissions' => array(
+				'superuser' => 1
+			),
+		) );
+
+		return $oAdminGroup;
+	}
 
 	public function testScopeActive() {
 		$this->_getUser();
@@ -95,33 +123,21 @@ class UserTest extends \TestCase {
 		$this->assertFalse($oUser->changePassword($aNewPasswordFail));
 	}
 
-	/**
-	 * @return \Cartalyst\Sentry\Users\UserInterface
-	 */
-	protected function _getUser($sEmail = 'sr@laravel-blog.de', $sPassword = '1234', $sFirstName = 'Stefan', $sLastName = 'Riedel', $blActivated = 1) {
-		$oUser = \Sentry::createUser( array(
-			'email'      => $sEmail,
-			'password'   => $sPassword,
-			'first_name' => $sFirstName,
-			'last_name'  => $sLastName,
-			'activated'  => $blActivated
-		) );
-
-		return $oUser;
+	public function testBan() {
+		$oUser = $this->_getUser();
+		$this->assertTrue($oUser->ban());
 	}
 
-	/**
-	 * @return \Cartalyst\Sentry\Groups\GroupInterface
-	 */
-	protected function _getAdminGroup() {
-		$oAdminGroup = \Sentry::createGroup( array(
-			'name'        => 'Admin',
-			'permissions' => array(
-				'superuser' => 1
-			),
-		) );
+	public function testUnban() {
+		$oUser = $this->_getUser();
+		$oUser->ban();
+		$this->assertTrue($oUser->unban());
+	}
 
-		return $oAdminGroup;
+	public function testIsBan() {
+		$oUser = $this->_getUser();
+		$oUser->ban();
+		return $this->assertTrue($oUser->isBanned());
 	}
 
 
