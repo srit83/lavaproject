@@ -50,6 +50,11 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User {
 	protected $_oThrottle = null;
 
 	/**
+	 * @var Validator
+	 */
+	protected static $_oValidator = null;
+
+	/**
 	 * @return $this
 	 */
 	protected static function _prepareCountIsAdminQuery() {
@@ -170,6 +175,30 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User {
 			$this->_oThrottle = Sentry::findThrottlerByUserLogin($this->email);
 		}
 		return $this->_oThrottle;
+	}
+
+	public static function getValidator() {
+		return static::$_oValidator;
+	}
+
+	public static function validateCreate() {
+		$aRules = [
+			'email' => 'required|email|unique:users',
+			'first_name' => 'required',
+			'last_name' => 'required'
+		];
+		static::$_oValidator = Validator::make(Input::all(), $aRules);
+		return static::$_oValidator->fails();
+	}
+
+	public static function validateUpdate($oUser) {
+		$aRules = [
+			'email' => 'required|email|unique:users,email,' . $oUser->id,
+			'first_name' => 'required',
+			'last_name' => 'required'
+		];
+		static::$_oValidator = Validator::make(Input::all(), $aRules);
+		return static::$_oValidator->fails();
 	}
 
 }

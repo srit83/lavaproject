@@ -77,17 +77,23 @@ class UsersController extends AdminBaseController {
 	public function create() {
 		$this->_beforeCreate();
 		if(Request::isMethod('POST')) {
-			list( $aUser, $iGroup ) = $this->_getUserDataFromInput();
-			try {
-				$aUser['password'] = Str::random();
-				$oUser = Sentry::createUser( $aUser );
-				if($oGroup = Sentry::findGroupById($iGroup)) {
-					$oUser->addGroup($oGroup);
+			if(!User::validateCreate()) {
+				list( $aUser, $iGroup ) = $this->_getUserDataFromInput();
+				try {
+					$aUser['password'] = Str::random();
+					$oUser             = Sentry::createUser( $aUser );
+					if ( $oGroup = Sentry::findGroupById( $iGroup ) ) {
+						$oUser->addGroup( $oGroup );
+					}
+					Session::flash( 'success', _( 'Nutzer wurde erfolgreich angelegt.' ) );
+
+					return Redirect::to( URL::previous() );
+				} catch ( Exception $e ) {
+					Session::flash( 'danger', $e->getMessage() );
 				}
-				Session::flash('success', _('Nutzer wurde erfolgreich angelegt.'));
-				return Redirect::to(URL::previous());
-			} catch (Exception $e) {
-				Session::flash('danger', $e->getMessage());
+			} else {
+				Session::flash( 'danger', _('Der Nutzer konnte nicht angelegt werden') );
+				Former::withErrors(User::getValidator());
 			}
 		}
 		return View::make('users.create');
@@ -103,18 +109,23 @@ class UsersController extends AdminBaseController {
 	public function edit($sName) {
 		$oUser = Sentry::findUserByLogin($sName);
 		if(Request::isMethod('POST')) {
-			list( $aUser, $iGroup ) = $this->_getUserDataFromInput();
-			$oUser->fill($aUser);
-			/**
-			 * @todo try catch
-			 */
-			$oUser->save();
-			if($oGroup = Sentry::findGroupById($iGroup)) {
-				$oUser->removeGroup(Sentry::findGroupById($oUser->getGroups()->first()->id));
-				$oUser->addGroup($oGroup);
+			if(!User::validateUpdate($oUser)) {
+				list( $aUser, $iGroup ) = $this->_getUserDataFromInput();
+				$oUser->fill( $aUser );
+				/**
+				 * @todo try catch
+				 */
+				$oUser->save();
+				if ( $oGroup = Sentry::findGroupById( $iGroup ) ) {
+					$oUser->removeGroup( Sentry::findGroupById( $oUser->getGroups()->first()->id ) );
+					$oUser->addGroup( $oGroup );
+				}
+				Session::flash( 'success', _( 'Nutzer wurde erfolgreich geändert.' ) );
+				return Redirect::to( URL::previous() );
+			} else {
+				Session::flash( 'danger', _('Der Nutzer konnte nicht geändert werden') );
+				Former::withErrors(User::getValidator());
 			}
-			Session::flash('success', _('Nutzer wurde erfolgreich geändert.'));
-			return Redirect::to(URL::previous());
 		}
 		return View::make('users.edit')->with('user', $oUser);
 	}

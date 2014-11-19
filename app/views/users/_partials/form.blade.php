@@ -8,11 +8,7 @@
         <legend>{{ _('Nutzerdaten') }}</legend>
         {{ Former::text('first_name')->label(_('Vorname'))->placeholder(_('Vorname'))->required() }}
         {{ Former::text('last_name')->label(_('Nachname'))->placeholder(_('Nachname'))->required() }}
-        @if(isset($user) && $user)
-            {{ Former::text('email')->label(_('E-Mail-Adresse'))->placeholder(_('E-Mail-Adresse'))->disabled(); }}
-        @else
-            {{ Former::text('email')->label(_('E-Mail-Adresse'))->placeholder(_('E-Mail-Adresse'))->required(); }}
-        @endif
+        {{ Former::text('email')->label(_('E-Mail-Adresse'))->placeholder(_('E-Mail-Adresse')); }}
     </fieldset>
     <fieldset>
         <legend>{{ _('Passwort') }}</legend>

@@ -17,7 +17,8 @@
     "barryvdh/laravel-debugbar": "~1.8",
     "mockery/mockery": "0.9.*@dev",
     "way/laravel-test-helpers": "dev-master",
-    "xinax/laravel-gettext": "1.x"
+    "xinax/laravel-gettext": "1.x",
+    "graham-campbell/markdown": "~2.0"
   },
   "autoload": {
     "classmap": [
